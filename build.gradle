@@ -52,11 +52,13 @@ repositories {
     }
 }
 
-task copyCIArtifacts << {
-    if (System.getenv("CIRCLECI").equals("true")) {
-        copy {
-            from(file('build/libs/').listFiles())
-            into System.getenv('CIRCLE_ARTIFACTS')
+task copyCIArtifacts {
+    doLast {
+        if (System.getenv("CIRCLECI") == "true") {
+            copy {
+                from(file('build/libs/').listFiles())
+                into System.getenv('CIRCLE_ARTIFACTS')
+            }
         }
     }
 }
@@ -147,12 +149,12 @@ minecraft {
 }
 
 dependencies {
-//    deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
+    //deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
     //deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-    deobfCompile "cofh:CoFHCore:1.12-${cofhcore_version}:deobf"
+    deobfCompile "cofh:CoFHCore:1.12.2-${cofhcore_version}:deobf"
     deobfCompile "MCMultiPart2:MCMultiPart:${mcmultipart_version}"
     deobfCompile "li.cil.oc:OpenComputers:MC1.12.1-${oc_version}:api"
-    deobfCompile "dan200.computercraft:ComputerCraft-SquidDev-CC-ComputerCraft-feature-minecraft-1.12.2:${computercraft_version}"
+    deobfCompile "dan200.computercraft:ComputerCraft:${computercraft_version}"
     deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
     deobfProvided "CraftTweaker2:CraftTweaker2-API:${crafttweaker_version}"
